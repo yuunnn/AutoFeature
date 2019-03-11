@@ -31,8 +31,7 @@ class TimeSeriesor(Propecssing):
             raise Exception("keepdims should be smaller than len(str_format)")
         if self._keepdims > 6 or self._keepdims < 1:
             raise ValueError('keepdims should be >1 and <=6 ')
-        if isinstance(self._keepdims,int) == False:
-            raise ValueError('keepdims should be int ')
+
         
     def fit_transform(self,X):
         
