@@ -46,7 +46,7 @@ class TimeSeriesor(Propecssing):
         
         X = np.array(X)
         timescol = X[:,self._timeseries_colums]
-        timescol = [time.strptime('{}'.format(i),'%Y%m%d') for i in timescol]
+        timescol = [time.strptime('{}'.format(i),self._format) for i in timescol]
         
         for dims in range(self._keepdims):
             plus_col = [timestruct[dims] for timestruct in timescol]
