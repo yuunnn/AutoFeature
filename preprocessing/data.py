@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 import time
-from datetime import datetime
 from abc import ABC,abstractmethod
 from .utils import fillna
+from typing import List
 
 class Propecssing(ABC):
 
@@ -31,7 +31,7 @@ class Propecssing(ABC):
 
 class TimeSeriesor(Propecssing):
     
-    def __init__(self,timeseries_colums,target='split',str_format="%Y%m%d",keepdims=3,plus_weekday=False):
+    def __init__(self,timeseries_colums : int,target='split',str_format="%Y%m%d",keepdims : int=3,plus_weekday=False):
         '''
         timeseries_colums为需要处理的列，只能一次处理一列，
         keepdims为需要拆分的时间维度，例如keepdims=2，就是将时间序列拆为年和月两列（新增）。
@@ -89,9 +89,9 @@ class WindowSlider(Propecssing):
 
 class LaberEncoder(Propecssing):
     '''
-    columns为需要labelencoder的特征，应该是list或者tuple
+    columns为需要labelencoder的特征
     '''    
-    def __init__(self,columns,ifcopy=True):
+    def __init__(self,columns : List[int],ifcopy=True):
         self._columns = columns
         self._ifcopy = ifcopy
 
