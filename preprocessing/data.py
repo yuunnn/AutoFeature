@@ -8,21 +8,22 @@ from .utils import fillna
 class Propecssing(ABC):
 
     @abstractmethod
-    def fit(self):
+    def fit(self,X):
         pass
 
     @abstractmethod
-    def transform(self):
+    def transform(self,X):
         pass
     
     def type_confirm(self,X):
-        if isinstance(X,pd.DataFrame) or isinstance(X,pd.Series):
+        if isinstance(X,(pd.DataFrame,pd.Series)):
             self._x_type = 1
             self._x_columns = list(X.columns)
-        elif isinstance(X,np.ndarray) or isinstance(X,np.array):
+        elif isinstance(X,(np.ndarray,np.array)):
             self._x_type = 0
         else:
             raise Exception("data should be pandas or numpy date type")
+
     @abstractmethod
     def fit_transform(self,X):
         self.fit(X)
@@ -51,10 +52,10 @@ class TimeSeriesor(Propecssing):
             raise ValueError('keepdims should be >1 and <=6 ')
 
     def fit(self,X):
-        print('this class does not have the fit or transform function,just use fit_transform')
+        raise NotImplementedError('this class does not have the fit or transform function,just use fit_transform')
         
     def transform(self,X):
-        print('this class does not have the fit or transform function,just use fit_transform')
+        raise NotImplementedError('this class does not have the fit or transform function,just use fit_transform')
         
     def fit_transform(self,X):
         self.type_confirm(X)
@@ -80,7 +81,6 @@ class TimeSeriesor(Propecssing):
                 self._x_columns.append('tm_wday')
                 X = pd.DataFrame(X,columns = self._x_columns)
         return X
-
 
 class WindowSlider(Propecssing):
 
